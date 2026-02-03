@@ -222,7 +222,7 @@ const ServicesPage = () => {
 
                     {/* CTA Button */}
                     <div className="mt-5 sm:mt-6 lg:mt-8">
-                      <button
+                      {/* <button
                         onClick={handleGetQuote}
                         className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-5 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105 text-xs sm:text-sm lg:text-base"
                       >
@@ -230,7 +230,7 @@ const ServicesPage = () => {
                         <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

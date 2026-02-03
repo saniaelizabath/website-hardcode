@@ -12,15 +12,20 @@ import math
 # For now, using placeholder coordinates - REPLACE THESE WITH ACTUAL COORDINATES
 
 ALLOWED_LOCATIONS = [
+    # {
+    #     "name": "Location 1",
+    #     "latitude": 12.894876148821162,
+    #     "longitude": 77.63582566826675,
+    # },
     {
         "name": "Location 1",
-        "latitude": 12.894876148821162,
-        "longitude": 77.63582566826675,
+        "latitude": 13.30922,
+        "longitude":80.34562,
     },
     {
         "name": "Location 2",
-        "latitude": 12.9800,  # Example: Another Bangalore location
-        "longitude": 77.6000,
+        "latitude": 17.691926613963844, 
+        "longitude": 83.2779057355823
     }
 ]
 

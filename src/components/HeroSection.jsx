@@ -5,7 +5,7 @@ import shipInside from '../assets/videos/ship-inside.mp4';
 import shipRepair from '../assets/videos/new.mp4';
 import diving from '../assets/videos/diving.mp4';
 
-const HeroSection = () => {
+const HeroSection = ({ setCurrentPage }) => {
   const videoARef = useRef(null);
   const videoBRef = useRef(null);
 
@@ -104,7 +104,14 @@ const HeroSection = () => {
             </p>
 
             <div className="mt-10 animate-slide-up-delay-2">
-              <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-cyan-500/50 hover:scale-105 transition-all duration-300">
+              
+
+
+              <button 
+                onClick={() => setCurrentPage("services")}
+
+
+                className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-cyan-500/50 hover:scale-105 transition-all duration-300">
                 Explore Our Services
               </button>
             </div>

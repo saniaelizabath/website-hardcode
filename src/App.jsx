@@ -119,7 +119,8 @@ function App() {
         {currentPage === 'home' && (
           <div className="snap-y snap-mandatory h-[calc(100vh-64px)] md:h-screen overflow-y-scroll scroll-smooth">
             <div className="snap-start snap-always">
-              <HeroSection />
+              <HeroSection setCurrentPage={handlePageChange} />
+
             </div>
             <div className="snap-start snap-always">
               <ProgressSection />
