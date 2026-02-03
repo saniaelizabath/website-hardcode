@@ -29,7 +29,7 @@ const CareersPage = () => {
     const body = encodeURIComponent(
       `Dear Hiring Team,\n\nI am writing to express my interest in the ${jobTitle} position at Mag Marine Services.\n\nPlease find my resume attached.\n\nBest regards,`
     );
-    window.location.href = `mailto:sania.elizabath@btech.christuniversity.in?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:careers@magmarine.in?subject=${subject}&body=${body}`;
   };
 
   return (

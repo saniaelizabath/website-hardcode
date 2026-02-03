@@ -597,46 +597,47 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
   // UI
   // =========================
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 pt-32 pb-20">
-      <div className="container mx-auto px-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6">
 
-        {/* HEADER + LOGOUT */}
-        <div className="flex justify-between items-center mb-12">
+        {/* HEADER + LOGOUT - Mobile Optimized */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 sm:mb-10 md:mb-12">
           <div>
-            <h1 className="text-5xl font-bold text-white mb-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-1 sm:mb-2">
               Admin <span className="text-cyan-400">Dashboard</span>
             </h1>
-            <p className="text-blue-200">Manage website content and postings</p>
+            <p className="text-blue-200 text-sm sm:text-base">Manage website content and postings</p>
           </div>
 
           <button
             onClick={handleLogout}
-            className="bg-red-500/20 border border-red-500/40 text-red-400 px-6 py-3 rounded-lg hover:bg-red-500/30 transition-all duration-300 font-semibold"
+            className="w-full sm:w-auto bg-red-500/20 border border-red-500/40 text-red-400 px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-red-500/30 transition-all duration-300 font-semibold text-sm sm:text-base"
           >
             Logout
           </button>
         </div>
 
-        {/* TABS */}
-        <div className="max-w-7xl mx-auto mb-8">
-          <div className="flex gap-4 bg-slate-800/50 p-2 rounded-xl backdrop-blur-sm">
+        {/* TABS - Mobile Scrollable */}
+        <div className="max-w-7xl mx-auto mb-6 sm:mb-8">
+          <div className="flex gap-2 sm:gap-4 bg-slate-800/50 p-2 rounded-xl backdrop-blur-sm overflow-x-auto scrollbar-hide">
             {[
-              { key: "news",       label: "📰 News & Events" },
-              { key: "careers",    label: "💼 Careers"       },
-              { key: "employees",  label: "👥 Employees"     },
-              { key: "attendance", label: "📊 Attendance"    },
-              { key: "admin-links", label: "📎 My Links"     },
+              { key: "news",       label: "📰", fullLabel: "News & Events" },
+              { key: "careers",    label: "💼", fullLabel: "Careers"       },
+              { key: "employees",  label: "👥", fullLabel: "Employees"     },
+              { key: "attendance", label: "📊", fullLabel: "Attendance"    },
+              { key: "admin-links", label: "📎", fullLabel: "My Links"     },
             ].map(tab => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                className={`flex-shrink-0 px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base ${
                   activeTab === tab.key
                     ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg"
                     : "text-blue-300 hover:bg-slate-700/50"
                 }`}
               >
-                {tab.label}
+                <span className="sm:hidden">{tab.label}</span>
+                <span className="hidden sm:inline">{tab.label} {tab.fullLabel}</span>
               </button>
             ))}
           </div>
@@ -644,9 +645,9 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
 
         {/* NEWS TAB */}
         {activeTab === "news" && (
-          <div className="max-w-4xl mx-auto space-y-6">
-            <form onSubmit={handleNewsSubmit} className="space-y-4 bg-slate-800/50 p-6 rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
+            <form onSubmit={handleNewsSubmit} className="space-y-3 sm:space-y-4 bg-slate-800/50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                 {editingNewsId ? "✏️ Edit News/Event" : "➕ Add News/Event"}
               </h3>
 
@@ -656,7 +657,7 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                 onChange={(e) => setNewsForm({ ...newsForm, title: e.target.value })}
                 required
                 placeholder="Title"
-                className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base"
               />
 
               <input
@@ -664,27 +665,27 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                 value={newsForm.date}
                 onChange={(e) => setNewsForm({ ...newsForm, date: e.target.value })}
                 required
-                className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base"
               />
 
               <div className="space-y-2">
-                <label className="text-blue-300 text-sm font-semibold">Upload Image</label>
+                <label className="text-blue-300 text-xs sm:text-sm font-semibold">Upload Image</label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleNewsImageChange}
                   required={!editingNewsId}
-                  className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-cyan-600 file:text-white hover:file:bg-cyan-700"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors file:mr-2 sm:file:mr-4 file:py-1 sm:file:py-2 file:px-2 sm:file:px-4 file:rounded-lg file:border-0 file:bg-cyan-600 file:text-white hover:file:bg-cyan-700 text-xs sm:text-sm"
                 />
               </div>
 
               {newsForm.imagePreview && (
                 <div className="relative">
-                  <img src={newsForm.imagePreview} className="h-40 w-full object-cover rounded-lg border border-cyan-500/30" alt="Preview" />
+                  <img src={newsForm.imagePreview} className="h-32 sm:h-40 w-full object-cover rounded-lg border border-cyan-500/30" alt="Preview" />
                   <button
                     type="button"
                     onClick={() => setNewsForm({ ...newsForm, image: null, imagePreview: '' })}
-                    className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                    className="absolute top-2 right-2 bg-red-500 text-white p-1.5 sm:p-2 rounded-full hover:bg-red-600 transition-colors text-sm"
                   >
                     ✕
                   </button>
@@ -697,10 +698,10 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                 required
                 rows="5"
                 placeholder="Description"
-                className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base"
               />
 
-              <button className="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300">
+              <button className="w-full py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 text-sm sm:text-base">
                 {editingNewsId ? "💾 Update News/Event" : "➕ Add News/Event"}
               </button>
 
@@ -711,28 +712,28 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                     setEditingNewsId(null);
                     setNewsForm({ title: "", description: "", date: "", image: null, imagePreview: "" });
                   }}
-                  className="w-full py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300"
+                  className="w-full py-2 sm:py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300 text-sm sm:text-base"
                 >
                   Cancel Edit
                 </button>
               )}
             </form>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {newsEvents.map((item) => (
-                <div key={item.id} className="flex justify-between items-center bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300">
-                  <div className="flex items-center gap-4">
+                <div key={item.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300">
+                  <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
                     {item.image && (
-                      <img src={item.image} alt={item.title} className="w-16 h-16 object-cover rounded-lg" />
+                      <img src={item.image} alt={item.title} className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg flex-shrink-0" />
                     )}
-                    <div>
-                      <span className="text-white font-semibold text-lg">{item.title}</span>
-                      <p className="text-blue-300 text-sm">{formatDate(item.date)}</p>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-white font-semibold text-base sm:text-lg block truncate">{item.title}</span>
+                      <p className="text-blue-300 text-xs sm:text-sm">{formatDate(item.date)}</p>
                     </div>
                   </div>
-                  <div className="flex gap-3">
-                    <button onClick={() => handleEditNews(item)} className="px-4 py-2 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300">✏️ Edit</button>
-                    <button onClick={() => handleDeleteNews(item.id)} className="px-4 py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300">🗑️ Delete</button>
+                  <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+                    <button onClick={() => handleEditNews(item)} className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300 text-xs sm:text-sm">✏️ Edit</button>
+                    <button onClick={() => handleDeleteNews(item.id)} className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-xs sm:text-sm">🗑️ Delete</button>
                   </div>
                 </div>
               ))}
@@ -742,35 +743,35 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
 
         {/* CAREERS TAB */}
         {activeTab === "careers" && (
-          <div className="max-w-4xl mx-auto space-y-6">
-            <form onSubmit={handleCareerSubmit} className="space-y-4 bg-slate-800/50 p-6 rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
+            <form onSubmit={handleCareerSubmit} className="space-y-3 sm:space-y-4 bg-slate-800/50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                 {editingCareerId ? "✏️ Edit Career" : "➕ Add Career"}
               </h3>
 
-              <input type="text" value={careerForm.title} onChange={(e) => setCareerForm({ ...careerForm, title: e.target.value })} required placeholder="Job Title" className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors" />
-              <input type="text" value={careerForm.location} onChange={(e) => setCareerForm({ ...careerForm, location: e.target.value })} required placeholder="Location" className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors" />
-              <textarea value={careerForm.description} onChange={(e) => setCareerForm({ ...careerForm, description: e.target.value })} required rows="5" placeholder="Job Description" className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors" />
+              <input type="text" value={careerForm.title} onChange={(e) => setCareerForm({ ...careerForm, title: e.target.value })} required placeholder="Job Title" className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base" />
+              <input type="text" value={careerForm.location} onChange={(e) => setCareerForm({ ...careerForm, location: e.target.value })} required placeholder="Location" className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base" />
+              <textarea value={careerForm.description} onChange={(e) => setCareerForm({ ...careerForm, description: e.target.value })} required rows="5" placeholder="Job Description" className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base" />
 
-              <button className="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300">
+              <button className="w-full py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 text-sm sm:text-base">
                 {editingCareerId ? "💾 Update Career" : "➕ Add Career"}
               </button>
 
               {editingCareerId && (
-                <button type="button" onClick={() => { setEditingCareerId(null); setCareerForm({ title: "", description: "", location: "" }); }} className="w-full py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300">Cancel Edit</button>
+                <button type="button" onClick={() => { setEditingCareerId(null); setCareerForm({ title: "", description: "", location: "" }); }} className="w-full py-2 sm:py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300 text-sm sm:text-base">Cancel Edit</button>
               )}
             </form>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {careers.map((job) => (
-                <div key={job.id} className="flex justify-between items-center bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300">
-                  <div>
-                    <span className="text-white font-semibold text-lg">{job.title}</span>
-                    <p className="text-blue-300 text-sm">📍 {job.location}</p>
+                <div key={job.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300">
+                  <div className="w-full sm:w-auto">
+                    <span className="text-white font-semibold text-base sm:text-lg block">{job.title}</span>
+                    <p className="text-blue-300 text-xs sm:text-sm">📍 {job.location}</p>
                   </div>
-                  <div className="flex gap-3">
-                    <button onClick={() => handleEditCareer(job)} className="px-4 py-2 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300">✏️ Edit</button>
-                    <button onClick={() => handleDeleteCareer(job.id)} className="px-4 py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300">🗑️ Delete</button>
+                  <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+                    <button onClick={() => handleEditCareer(job)} className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300 text-xs sm:text-sm">✏️ Edit</button>
+                    <button onClick={() => handleDeleteCareer(job.id)} className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-xs sm:text-sm">🗑️ Delete</button>
                   </div>
                 </div>
               ))}
@@ -780,33 +781,34 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
 
         {/* EMPLOYEES TAB */}
         {activeTab === "employees" && (
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
 
             {/* Add / Edit Employee Form */}
-            <form onSubmit={handleEmployeeSubmit} className="space-y-4 bg-slate-800/50 p-6 rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold text-white mb-4">
+            <form onSubmit={handleEmployeeSubmit} className="space-y-3 sm:space-y-4 bg-slate-800/50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                 {editingEmployeeId ? "✏️ Edit Employee" : "➕ Add Employee"}
               </h3>
 
-              <input type="number" value={employeeForm.id} onChange={(e) => setEmployeeForm({ ...employeeForm, id: e.target.value })} required placeholder="Employee ID (Number)" disabled={editingEmployeeId !== null} className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors disabled:opacity-50" />
-              <input type="text" value={employeeForm.name} onChange={(e) => setEmployeeForm({ ...employeeForm, name: e.target.value })} required placeholder="Full Name" className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors" />
-              <input type="email" value={employeeForm.email} onChange={(e) => setEmployeeForm({ ...employeeForm, email: e.target.value })} required placeholder="Email Address" className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors" />
-              <input type="password" value={employeeForm.password} onChange={(e) => setEmployeeForm({ ...employeeForm, password: e.target.value })} required={!editingEmployeeId} placeholder={editingEmployeeId ? "Leave blank to keep current password" : "Password"} className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors" />
+              <input type="number" value={employeeForm.id} onChange={(e) => setEmployeeForm({ ...employeeForm, id: e.target.value })} required placeholder="Employee ID (Number)" disabled={editingEmployeeId !== null} className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors disabled:opacity-50 text-sm sm:text-base" />
+              <input type="text" value={employeeForm.name} onChange={(e) => setEmployeeForm({ ...employeeForm, name: e.target.value })} required placeholder="Full Name" className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base" />
+              <input type="email" value={employeeForm.email} onChange={(e) => setEmployeeForm({ ...employeeForm, email: e.target.value })} required placeholder="Email Address" className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base" />
+              <input type="password" value={employeeForm.password} onChange={(e) => setEmployeeForm({ ...employeeForm, password: e.target.value })} required={!editingEmployeeId} placeholder={editingEmployeeId ? "Leave blank to keep current password" : "Password"} className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base" />
 
-              <button className="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300">
+              <button className="w-full py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 text-sm sm:text-base">
                 {editingEmployeeId ? "💾 Update Employee" : "➕ Add Employee"}
               </button>
 
               {editingEmployeeId && (
-                <button type="button" onClick={() => { setEditingEmployeeId(null); setEmployeeForm({ id: "", name: "", email: "", password: "" }); }} className="w-full py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300">Cancel Edit</button>
+                <button type="button" onClick={() => { setEditingEmployeeId(null); setEmployeeForm({ id: "", name: "", email: "", password: "" }); }} className="w-full py-2 sm:py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300 text-sm sm:text-base">Cancel Edit</button>
               )}
             </form>
 
-            {/* Employees List */}
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/20">
-              <h3 className="text-2xl font-bold text-white mb-6">👥 All Employees ({employees.length})</h3>
+            {/* Employees List - Mobile Optimized */}
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-cyan-500/20">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">👥 All Employees ({employees.length})</h3>
 
-              <div className="overflow-x-auto">
+              {/* Desktop Table */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-slate-700">
@@ -830,7 +832,7 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                           <td className="py-3 px-4">
                             <div className="flex gap-2">
                               <button onClick={() => handleEditEmployee(employee)} className="px-3 py-1 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300 text-sm">✏️ Edit</button>
-                              <button onClick={() => handleDeleteEmployee(employee.id, employee.name)} className="px-2 py-1 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-sm">🗑️ Delete</button>
+                              <button onClick={() => handleDeleteEmployee(employee.id, employee.name)} className="px-2 py-1 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-sm">🗑️</button>
                             </div>
                           </td>
                         </tr>
@@ -839,24 +841,47 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                   </tbody>
                 </table>
               </div>
+
+              {/* Mobile Cards */}
+              <div className="md:hidden space-y-3">
+                {employees.length === 0 ? (
+                  <div className="text-center py-8 text-slate-400 text-sm">No employees found. Add your first employee above.</div>
+                ) : (
+                  employees.map((employee) => (
+                    <div key={employee.id} className="bg-slate-700/50 p-4 rounded-lg border border-slate-600">
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="text-blue-300 font-mono text-xs mb-1">ID: {employee.id}</div>
+                          <div className="text-white font-semibold text-base truncate">{employee.name}</div>
+                          <div className="text-slate-300 text-xs truncate">{employee.email}</div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <button onClick={() => handleEditEmployee(employee)} className="flex-1 px-3 py-2 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300 text-xs">✏️ Edit</button>
+                        <button onClick={() => handleDeleteEmployee(employee.id, employee.name)} className="flex-1 px-3 py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-xs">🗑️ Delete</button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
 
-            {/* Quick Links Manager with Individual Edit */}
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/20">
-              <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+            {/* Quick Links Manager with Individual Edit - Mobile Optimized */}
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-cyan-500/20">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 flex items-center gap-2">
                 <span>🔗</span> Manage Employee Quick Links
               </h3>
-              <p className="text-slate-400 text-sm mb-6">
+              <p className="text-slate-400 text-xs sm:text-sm mb-4 sm:mb-6">
                 Select an employee below to set their individual Google Sheets links. You can edit each link individually or save all at once.
               </p>
 
               {/* Employee Selector */}
-              <div className="mb-6">
-                <label className="text-blue-300 text-sm font-semibold mb-2 block">Select Employee</label>
+              <div className="mb-4 sm:mb-6">
+                <label className="text-blue-300 text-xs sm:text-sm font-semibold mb-2 block">Select Employee</label>
                 <select
                   value={selectedEmployeeForLinks || ""}
                   onChange={(e) => handleSelectEmployeeForLinks(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors cursor-pointer"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors cursor-pointer text-sm sm:text-base"
                 >
                   <option value="">-- Choose an employee --</option>
                   {employees.map((emp) => (
@@ -870,35 +895,36 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
               {/* URL Fields with Individual Edit Buttons */}
               {selectedEmployeeForLinks && linksConfig.length > 0 && (
                 <>
-                  <div className="space-y-4 mb-6">
+                  <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                     {linksConfig.map((item) => (
-                      <div key={item.key} className="bg-slate-700/50 p-4 rounded-lg border border-slate-600">
+                      <div key={item.key} className="bg-slate-700/50 p-3 sm:p-4 rounded-lg border border-slate-600">
                         <div className="flex items-center justify-between mb-2">
-                          <label className="text-blue-300 text-sm font-semibold flex items-center gap-2">
-                            <span>{LINK_ICONS[item.key]}</span> {item.name}
+                          <label className="text-blue-300 text-xs sm:text-sm font-semibold flex items-center gap-2">
+                            <span>{LINK_ICONS[item.key]}</span> 
+                            <span className="truncate">{item.name}</span>
                           </label>
                           
                           {editingLinkKey === item.key ? (
-                            <div className="flex gap-2">
+                            <div className="flex gap-1 sm:gap-2 flex-shrink-0">
                               <button
                                 onClick={() => handleSaveSingleLink(item.key)}
-                                className="px-3 py-1 bg-green-600/20 border border-green-500/40 text-green-300 rounded-lg hover:bg-green-600/30 transition-all duration-300 text-sm"
+                                className="px-2 sm:px-3 py-1 bg-green-600/20 border border-green-500/40 text-green-300 rounded-lg hover:bg-green-600/30 transition-all duration-300 text-xs"
                               >
-                                ✓ Save
+                                ✓
                               </button>
                               <button
                                 onClick={handleCancelEditLink}
-                                className="px-3 py-1 bg-slate-600/20 border border-slate-500/40 text-slate-300 rounded-lg hover:bg-slate-600/30 transition-all duration-300 text-sm"
+                                className="px-2 sm:px-3 py-1 bg-slate-600/20 border border-slate-500/40 text-slate-300 rounded-lg hover:bg-slate-600/30 transition-all duration-300 text-xs"
                               >
-                                ✕ Cancel
+                                ✕
                               </button>
                             </div>
                           ) : (
                             <button
                               onClick={() => handleStartEditLink(item.key)}
-                              className="px-3 py-1 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300 text-sm"
+                              className="px-2 sm:px-3 py-1 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300 text-xs flex-shrink-0"
                             >
-                              ✏️ Edit
+                              ✏️
                             </button>
                           )}
                         </div>
@@ -909,11 +935,11 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                             value={editingLinkValue}
                             onChange={(e) => setEditingLinkValue(e.target.value)}
                             placeholder="https://docs.google.com/spreadsheets/..."
-                            className="w-full px-4 py-3 bg-slate-600 text-white rounded-lg border border-cyan-500 focus:border-cyan-400 focus:outline-none transition-colors text-sm"
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-600 text-white rounded-lg border border-cyan-500 focus:border-cyan-400 focus:outline-none transition-colors text-xs sm:text-sm"
                             autoFocus
                           />
                         ) : (
-                          <div className="px-4 py-3 bg-slate-800/50 text-slate-300 rounded-lg text-sm break-all">
+                          <div className="px-3 sm:px-4 py-2 sm:py-3 bg-slate-800/50 text-slate-300 rounded-lg text-xs sm:text-sm break-all">
                             {linksForm[item.key] || <span className="text-slate-500 italic">No URL set</span>}
                           </div>
                         )}
@@ -922,10 +948,10 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                   </div>
 
                   {/* Bulk Action Buttons */}
-                  <div className="flex gap-3">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                     <button
                       onClick={handleSaveLinks}
-                      className={`flex-1 py-3 font-semibold rounded-lg transition-all duration-300 ${
+                      className={`flex-1 py-2 sm:py-3 font-semibold rounded-lg transition-all duration-300 text-sm sm:text-base ${
                         linksSaved
                           ? "bg-slate-600 text-slate-400 cursor-not-allowed"
                           : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg hover:shadow-cyan-500/50"
@@ -936,20 +962,20 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                     </button>
                     <button
                       onClick={handleDeleteLinks}
-                      className="px-6 py-3 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 font-semibold"
+                      className="sm:flex-none px-4 sm:px-6 py-2 sm:py-3 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 font-semibold text-sm sm:text-base"
                     >
                       🗑️ Delete All
                     </button>
                   </div>
 
                   {linksSaved && (
-                    <p className="text-green-400 text-sm mt-3 text-center">✓ All changes saved</p>
+                    <p className="text-green-400 text-xs sm:text-sm mt-3 text-center">✓ All changes saved</p>
                   )}
                 </>
               )}
 
               {!selectedEmployeeForLinks && (
-                <div className="text-center py-6 text-slate-500 text-sm">
+                <div className="text-center py-6 text-slate-500 text-xs sm:text-sm">
                   Select an employee above to manage their links
                 </div>
               )}
@@ -957,29 +983,29 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
           </div>
         )}
 
-        {/* ATTENDANCE TAB */}
+        {/* ATTENDANCE TAB - Mobile Optimized */}
         {activeTab === "attendance" && (
-          <div className="max-w-7xl mx-auto space-y-8">
+          <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
 
             {/* FILTER SECTION */}
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/20">
-              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-cyan-500/20">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2">
                 <span>🔍</span> Filter Attendance
               </h3>
 
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-2 sm:gap-3 mb-3 sm:mb-4">
                 {[
                   { key: 'today',        label: '📅 Today'        },
-                  { key: 'week',         label: '📆 This Week'    },
-                  { key: 'month',        label: '📊 This Month'   },
-                  { key: 'custom-date',  label: '📌 Custom Date'  },
-                  { key: 'custom-week',  label: '📅 Custom Week'  },
-                  { key: 'custom-month', label: '📅 Custom Month' },
+                  { key: 'week',         label: '📆 Week'    },
+                  { key: 'month',        label: '📊 Month'   },
+                  { key: 'custom-date',  label: '📌 Date'  },
+                  { key: 'custom-week',  label: '📅 Week Range'  },
+                  { key: 'custom-month', label: '📅 Month' },
                 ].map(f => (
                   <button
                     key={f.key}
                     onClick={() => setFilterType(f.key)}
-                    className={`py-3 px-4 rounded-lg font-semibold transition-all ${
+                    className={`py-2 sm:py-3 px-2 sm:px-4 rounded-lg font-semibold transition-all text-xs sm:text-sm ${
                       filterType === f.key
                         ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg'
                         : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
@@ -990,23 +1016,23 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
                 {filterType === 'custom-date' && (
                   <div className="col-span-1">
-                    <label className="text-blue-300 text-sm mb-2 block">Select Date</label>
-                    <input type="date" value={customDate} onChange={(e) => setCustomDate(e.target.value)} className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none" />
+                    <label className="text-blue-300 text-xs sm:text-sm mb-2 block">Select Date</label>
+                    <input type="date" value={customDate} onChange={(e) => setCustomDate(e.target.value)} className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none text-sm" />
                   </div>
                 )}
 
                 {filterType === 'custom-week' && (
                   <>
                     <div>
-                      <label className="text-blue-300 text-sm mb-2 block">Week Start</label>
-                      <input type="date" value={customWeekStart} onChange={(e) => setCustomWeekStart(e.target.value)} className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none" />
+                      <label className="text-blue-300 text-xs sm:text-sm mb-2 block">Week Start</label>
+                      <input type="date" value={customWeekStart} onChange={(e) => setCustomWeekStart(e.target.value)} className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none text-sm" />
                     </div>
                     <div>
-                      <label className="text-blue-300 text-sm mb-2 block">Week End</label>
-                      <input type="date" value={customWeekEnd} onChange={(e) => setCustomWeekEnd(e.target.value)} className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none" />
+                      <label className="text-blue-300 text-xs sm:text-sm mb-2 block">Week End</label>
+                      <input type="date" value={customWeekEnd} onChange={(e) => setCustomWeekEnd(e.target.value)} className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none text-sm" />
                     </div>
                   </>
                 )}
@@ -1014,23 +1040,23 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                 {filterType === 'custom-month' && (
                   <>
                     <div>
-                      <label className="text-blue-300 text-sm mb-2 block">Month</label>
-                      <select value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))} className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none">
+                      <label className="text-blue-300 text-xs sm:text-sm mb-2 block">Month</label>
+                      <select value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))} className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none text-sm">
                         {months.map((month, index) => (
                           <option key={index} value={index + 1}>{month}</option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <label className="text-blue-300 text-sm mb-2 block">Year</label>
-                      <input type="number" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))} className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none" min="2020" max="2030" />
+                      <label className="text-blue-300 text-xs sm:text-sm mb-2 block">Year</label>
+                      <input type="number" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))} className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none text-sm" min="2020" max="2030" />
                     </div>
                   </>
                 )}
               </div>
 
               {attendanceData && (
-                <div className="mt-4 text-blue-200 text-sm">
+                <div className="mt-3 sm:mt-4 text-blue-200 text-xs sm:text-sm">
                   Showing: {attendanceData.date_range?.start} to {attendanceData.date_range?.end}
                 </div>
               )}
@@ -1038,114 +1064,143 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
 
             {loadingAttendance ? (
               <div className="text-center py-12">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
-                <p className="text-blue-300 mt-4">Loading attendance data...</p>
+                <div className="inline-block animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-cyan-500"></div>
+                <p className="text-blue-300 mt-4 text-sm sm:text-base">Loading attendance data...</p>
               </div>
             ) : attendanceData ? (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {attendanceData.attendance.map((empData) => (
-                  <div key={empData.employee_id} className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/20">
-                    <div className="flex justify-between items-start mb-6">
-                      <div>
-                        <h3 className="text-2xl font-bold text-white mb-1">{empData.employee_name}</h3>
-                        <p className="text-blue-300">ID: {empData.employee_id} | {empData.email}</p>
+                  <div key={empData.employee_id} className="bg-slate-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-cyan-500/20">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                      <div className="flex-1 min-w-0 w-full">
+                        <h3 className="text-lg sm:text-2xl font-bold text-white mb-1 truncate">{empData.employee_name}</h3>
+                        <p className="text-blue-300 text-xs sm:text-sm truncate">ID: {empData.employee_id} | {empData.email}</p>
                       </div>
-                      <button onClick={() => handleDeleteEmployeeAttendance(empData.employee_id, empData.employee_name)} className="px-4 py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 font-semibold">🗑️ Delete All Records</button>
+                      <button onClick={() => handleDeleteEmployeeAttendance(empData.employee_id, empData.employee_name)} className="w-full sm:w-auto px-3 sm:px-4 py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 font-semibold text-xs sm:text-sm whitespace-nowrap">🗑️ Delete All</button>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4 mb-6">
-                      <div className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 rounded-lg p-4 border border-green-500/30">
-                        <p className="text-green-300 text-sm mb-1">Present Days</p>
-                        <p className="text-3xl font-bold text-white">{empData.summary.present_days}</p>
+                    <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
+                      <div className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 rounded-lg p-3 sm:p-4 border border-green-500/30">
+                        <p className="text-green-300 text-[10px] sm:text-sm mb-1">Present</p>
+                        <p className="text-xl sm:text-3xl font-bold text-white">{empData.summary.present_days}</p>
                       </div>
-                      <div className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-lg p-4 border border-cyan-500/30">
-                        <p className="text-cyan-300 text-sm mb-1">Total Hours</p>
-                        <p className="text-3xl font-bold text-white">{empData.summary.total_hours}h</p>
+                      <div className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-lg p-3 sm:p-4 border border-cyan-500/30">
+                        <p className="text-cyan-300 text-[10px] sm:text-sm mb-1">Hours</p>
+                        <p className="text-xl sm:text-3xl font-bold text-white">{empData.summary.total_hours}h</p>
                       </div>
-                      <div className="bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-lg p-4 border border-purple-500/30">
-                        <p className="text-purple-300 text-sm mb-1">Total Days</p>
-                        <p className="text-3xl font-bold text-white">{empData.summary.total_days}</p>
+                      <div className="bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-lg p-3 sm:p-4 border border-purple-500/30">
+                        <p className="text-purple-300 text-[10px] sm:text-sm mb-1">Days</p>
+                        <p className="text-xl sm:text-3xl font-bold text-white">{empData.summary.total_days}</p>
                       </div>
                     </div>
 
                     {empData.records.length > 0 ? (
-                      <div className="overflow-x-auto">
-                        <table className="w-full">
-                          <thead>
-                            <tr className="border-b border-slate-700">
-                              <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Date</th>
-                              <th className="text-left py-3 px-4 text-cyan-300 font-semibold">In Time</th>
-                              <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Out Time</th>
-                              <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Hours</th>
-                              <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Actions</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {empData.records.map((record) => (
-                              <tr key={record._id} className="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors">
-                                <td className="py-3 px-4 text-white font-mono text-sm">{formatDate(record.date)}</td>
-                                <td className="py-3 px-4 text-cyan-400 font-mono text-sm">{record.in_time_display}</td>
-                                <td className="py-3 px-4 text-blue-400 font-mono text-sm">{record.out_time_display}</td>
-                                <td className="py-3 px-4 text-purple-400 font-mono text-sm">{record.hours_worked}h</td>
-                                <td className="py-3 px-4">
-                                  <button onClick={() => handleDeleteAttendanceRecord(record._id, empData.employee_name)} className="px-3 py-1 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-sm">🗑️ Delete</button>
-                                </td>
+                      <>
+                        {/* Desktop Table */}
+                        <div className="hidden md:block overflow-x-auto">
+                          <table className="w-full">
+                            <thead>
+                              <tr className="border-b border-slate-700">
+                                <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Date</th>
+                                <th className="text-left py-3 px-4 text-cyan-300 font-semibold">In Time</th>
+                                <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Out Time</th>
+                                <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Hours</th>
+                                <th className="text-left py-3 px-4 text-cyan-300 font-semibold">Actions</th>
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+                            </thead>
+                            <tbody>
+                              {empData.records.map((record) => (
+                                <tr key={record._id} className="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors">
+                                  <td className="py-3 px-4 text-white font-mono text-sm">{formatDate(record.date)}</td>
+                                  <td className="py-3 px-4 text-cyan-400 font-mono text-sm">{record.in_time_display}</td>
+                                  <td className="py-3 px-4 text-blue-400 font-mono text-sm">{record.out_time_display}</td>
+                                  <td className="py-3 px-4 text-purple-400 font-mono text-sm">{record.hours_worked}h</td>
+                                  <td className="py-3 px-4">
+                                    <button onClick={() => handleDeleteAttendanceRecord(record._id, empData.employee_name)} className="px-3 py-1 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-sm">🗑️</button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+
+                        {/* Mobile Cards */}
+                        <div className="md:hidden space-y-2">
+                          {empData.records.map((record) => (
+                            <div key={record._id} className="bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                              <div className="flex justify-between items-start mb-2">
+                                <div className="text-white font-mono text-sm font-semibold">{formatDate(record.date)}</div>
+                                <button onClick={() => handleDeleteAttendanceRecord(record._id, empData.employee_name)} className="px-2 py-1 bg-red-600/20 border border-red-500/40 text-red-300 rounded text-xs">🗑️</button>
+                              </div>
+                              <div className="grid grid-cols-3 gap-2 text-xs">
+                                <div>
+                                  <div className="text-cyan-400 mb-1">In</div>
+                                  <div className="text-white font-mono">{record.in_time_display}</div>
+                                </div>
+                                <div>
+                                  <div className="text-blue-400 mb-1">Out</div>
+                                  <div className="text-white font-mono">{record.out_time_display}</div>
+                                </div>
+                                <div>
+                                  <div className="text-purple-400 mb-1">Hours</div>
+                                  <div className="text-white font-mono">{record.hours_worked}h</div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </>
                     ) : (
-                      <div className="text-center py-8 text-slate-400">No attendance records for this period</div>
+                      <div className="text-center py-6 sm:py-8 text-slate-400 text-sm">No attendance records for this period</div>
                     )}
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 text-slate-400">No attendance data available</div>
+              <div className="text-center py-12 text-slate-400 text-sm sm:text-base">No attendance data available</div>
             )}
           </div>
         )}
 
-        {/* ADMIN LINKS TAB */}
+        {/* ADMIN LINKS TAB - Mobile Optimized */}
         {activeTab === "admin-links" && (
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
             
             {/* Add / Edit Admin Link Form */}
-            <form onSubmit={handleAdminLinkSubmit} className="space-y-4 bg-slate-800/50 p-6 rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold text-white mb-4">
+            <form onSubmit={handleAdminLinkSubmit} className="space-y-3 sm:space-y-4 bg-slate-800/50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-cyan-500/20 backdrop-blur-sm">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                 {editingAdminLinkId ? "✏️ Edit Link" : "➕ Add New Link"}
               </h3>
               
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-slate-400 text-xs sm:text-sm mb-3 sm:mb-4">
                 Add your own Excel sheets and documents with custom names and URLs for quick access.
               </p>
 
               <div>
-                <label className="text-blue-300 text-sm font-semibold mb-2 block">Link Name</label>
+                <label className="text-blue-300 text-xs sm:text-sm font-semibold mb-2 block">Link Name</label>
                 <input
                   type="text"
                   value={adminLinkForm.name}
                   onChange={(e) => setAdminLinkForm({ ...adminLinkForm, name: e.target.value })}
                   required
-                  placeholder="e.g., Monthly Budget Tracker, Sales Report 2025"
-                  className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors"
+                  placeholder="e.g., Monthly Budget Tracker"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base"
                 />
               </div>
 
               <div>
-                <label className="text-blue-300 text-sm font-semibold mb-2 block">Sheet URL</label>
+                <label className="text-blue-300 text-xs sm:text-sm font-semibold mb-2 block">Sheet URL</label>
                 <input
                   type="url"
                   value={adminLinkForm.url}
                   onChange={(e) => setAdminLinkForm({ ...adminLinkForm, url: e.target.value })}
                   required
                   placeholder="https://docs.google.com/spreadsheets/..."
-                  className="w-full px-4 py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-cyan-500 focus:outline-none transition-colors text-sm sm:text-base"
                 />
               </div>
 
-              <button className="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300">
+              <button className="w-full py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 text-sm sm:text-base">
                 {editingAdminLinkId ? "💾 Update Link" : "➕ Add Link"}
               </button>
 
@@ -1156,79 +1211,77 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
                     setEditingAdminLinkId(null);
                     setAdminLinkForm({ name: "", url: "" });
                   }}
-                  className="w-full py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300"
+                  className="w-full py-2 sm:py-3 bg-slate-700 text-slate-300 font-semibold rounded-lg hover:bg-slate-600 transition-all duration-300 text-sm sm:text-base"
                 >
                   Cancel Edit
                 </button>
               )}
             </form>
 
-            {/* Admin Links List */}
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/20">
-              <h3 className="text-2xl font-bold text-white mb-6">📎 My Links ({adminLinks.length})</h3>
+            {/* Admin Links List - Mobile Optimized */}
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-cyan-500/20">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">📎 My Links ({adminLinks.length})</h3>
 
               {adminLinks.length === 0 ? (
-                <div className="text-center py-12 text-slate-400">
-                  <div className="text-6xl mb-4">📋</div>
-                  <p>No links added yet. Add your first link above!</p>
+                <div className="text-center py-8 sm:py-12 text-slate-400">
+                  <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">📋</div>
+                  <p className="text-sm sm:text-base">No links added yet. Add your first link above!</p>
                 </div>
               ) : (
                 <div className="space-y-3">
                   {adminLinks.map((link) => (
                     <div
                       key={link._id}
-                      className="flex justify-between items-center bg-slate-700/50 p-4 rounded-xl border border-slate-600 hover:border-cyan-500/50 transition-all duration-300 group"
+                      className="flex flex-col sm:flex-row justify-between items-start gap-3 bg-slate-700/50 p-4 rounded-xl border border-slate-600 hover:border-cyan-500/50 transition-all duration-300 group"
                     >
-                      <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-lg flex items-center justify-center border border-cyan-500/30">
-                          <span className="text-2xl">📊</span>
+                      <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0 w-full">
+                        <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-lg flex items-center justify-center border border-cyan-500/30">
+                          <span className="text-xl sm:text-2xl">📊</span>
                         </div>
                         
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-white font-semibold text-lg mb-1 truncate">
+                          <h4 className="text-white font-semibold text-base sm:text-lg mb-1 truncate">
                             {link.name}
                           </h4>
-                          <p className="text-slate-400 text-sm truncate">
+                          <p className="text-slate-400 text-xs sm:text-sm truncate">
                             {link.url}
                           </p>
                           {link.created_at && (
-                            <p className="text-slate-500 text-xs mt-1">
+                            <p className="text-slate-500 text-[10px] sm:text-xs mt-1">
                               Added: {new Date(link.created_at).toLocaleDateString('en-US', {
-                                year: 'numeric',
                                 month: 'short',
                                 day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
+                                year: 'numeric'
                               })}
                             </p>
                           )}
                         </div>
                       </div>
 
-                      <div className="flex gap-2 flex-shrink-0">
+                      <div className="flex gap-2 w-full sm:w-auto flex-shrink-0">
                         <button
                           onClick={() => handleOpenAdminLink(link.url)}
-                          className="px-4 py-2 bg-cyan-600/20 border border-cyan-500/40 text-cyan-300 rounded-lg hover:bg-cyan-600/30 transition-all duration-300 flex items-center gap-2"
+                          className="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-cyan-600/20 border border-cyan-500/40 text-cyan-300 rounded-lg hover:bg-cyan-600/30 transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm"
                           title="Open link"
                         >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                           </svg>
-                          Open
+                          <span className="hidden sm:inline">Open</span>
                         </button>
                         
                         <button
                           onClick={() => handleEditAdminLink(link)}
-                          className="px-4 py-2 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300"
+                          className="px-3 sm:px-4 py-2 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-all duration-300 text-xs sm:text-sm"
                         >
-                          ✏️ Edit
+                          ✏️
                         </button>
                         
                         <button
                           onClick={() => handleDeleteAdminLink(link._id, link.name)}
-                          className="px-4 py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300"
+                          className="px-3 sm:px-4 py-2 bg-red-600/20 border border-red-500/40 text-red-300 rounded-lg hover:bg-red-600/30 transition-all duration-300 text-xs sm:text-sm"
                         >
-                          🗑️ Delete
+                          🗑️
                         </button>
                       </div>
                     </div>
@@ -1238,11 +1291,11 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
             </div>
 
             {/* Quick Tips */}
-            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-2xl p-6 border border-cyan-500/20">
-              <h4 className="text-cyan-300 font-semibold mb-3 flex items-center gap-2">
+            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-600/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-cyan-500/20">
+              <h4 className="text-cyan-300 font-semibold mb-3 flex items-center gap-2 text-sm sm:text-base">
                 <span>💡</span> Quick Tips
               </h4>
-              <ul className="text-slate-300 text-sm space-y-2">
+              <ul className="text-slate-300 text-xs sm:text-sm space-y-2">
                 <li className="flex items-start gap-2">
                   <span className="text-cyan-400 mt-1">•</span>
                   <span>You can add any type of link - Google Sheets, Excel Online, Google Docs, or other documents</span>
@@ -1264,6 +1317,16 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 };

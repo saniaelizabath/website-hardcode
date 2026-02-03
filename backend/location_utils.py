@@ -19,13 +19,13 @@ ALLOWED_LOCATIONS = [
     # },
     {
         "name": "Location 1",
-        "latitude": 13.30922,
-        "longitude":80.34562,
+        "latitude":13.309315391539295,
+        "longitude":80.34559857791152
     },
     {
         "name": "Location 2",
-        "latitude": 17.691926613963844, 
-        "longitude": 83.2779057355823
+        "latitude": 9.992306487982402,  
+        "longitude": 76.2794340490761
     }
 ]
 
