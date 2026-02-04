@@ -619,7 +619,7 @@ const AdminDashboard = ({ newsEvents, setNewsEvents, careers, setCareers }) => {
 
         {/* TABS - Mobile Scrollable */}
         <div className="max-w-7xl mx-auto mb-6 sm:mb-8">
-          <div className="flex gap-2 sm:gap-4 bg-slate-800/50 p-2 rounded-xl backdrop-blur-sm overflow-x-auto scrollbar-hide">
+          <div className="flex gap-10 sm:gap-12 bg-slate-800/50 p-2 rounded-xl backdrop-blur-sm overflow-x-auto scrollbar-hide">
             {[
               { key: "news",       label: "📰", fullLabel: "News & Events" },
               { key: "careers",    label: "💼", fullLabel: "Careers"       },

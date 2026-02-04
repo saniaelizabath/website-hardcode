@@ -57,21 +57,38 @@ const ContactPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const mailtoLink = `mailto:sales@magmarine.in?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
-    )}`;
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('subject', formData.subject);
+      formDataToSend.append('message', formData.message);
 
-    window.location.href = mailtoLink;
+      const response = await fetch('http://localhost:8000/api/send-contact', {
+        method: 'POST',
+        body: formDataToSend
+      });
 
-    setTimeout(() => {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alert('Message sent successfully! We will get back to you soon.');
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        setShowForm(false);
+      } else {
+        alert('Failed to send message. Please try again or email us directly at hello@magmarine.in');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to send message. Please email us directly at hello@magmarine.in');
+    } finally {
       setIsSubmitting(false);
-      setShowForm(false);
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-    }, 1000);
+    }
   };
 
   return (

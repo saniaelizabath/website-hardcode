@@ -14,7 +14,7 @@ if not MONGODB_URL:
 client = AsyncIOMotorClient(MONGODB_URL)
 
 # Get database (will be created automatically when you insert data)
-database = client.get_database()  # Uses database from connection string
+database = client["myapp_db"]     #.get_database()  # Uses database from connection string
 # OR specify explicitly: database = client["employee_portal_db"]
 
 # Define collections

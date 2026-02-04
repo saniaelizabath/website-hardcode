@@ -24,12 +24,37 @@ const CareersPage = () => {
       });
   }, []);
 
-  const handleApply = (jobTitle) => {
-    const subject = encodeURIComponent(`Application for ${jobTitle}`);
-    const body = encodeURIComponent(
-      `Dear Hiring Team,\n\nI am writing to express my interest in the ${jobTitle} position at Mag Marine Services.\n\nPlease find my resume attached.\n\nBest regards,`
-    );
-    window.location.href = `mailto:careers@magmarine.in?subject=${subject}&body=${body}`;
+  const handleApply = async (jobTitle) => {
+    try {
+      const formData = new FormData();
+      formData.append('job_title', jobTitle);
+
+      const response = await fetch('http://localhost:8000/api/send-application', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alert('Application received! Please send your resume to careers@magmarine.in with the subject: Application for ' + jobTitle);
+      } else {
+        // Fallback to mailto
+        const subject = encodeURIComponent(`Application for ${jobTitle}`);
+        const body = encodeURIComponent(
+          `Dear Hiring Team,\n\nI am writing to express my interest in the ${jobTitle} position at Mag Marine Services.\n\nPlease find my resume attached.\n\nBest regards,`
+        );
+        window.location.href = `mailto:careers@magmarine.in?subject=${subject}&body=${body}`;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Fallback to mailto
+      const subject = encodeURIComponent(`Application for ${jobTitle}`);
+      const body = encodeURIComponent(
+        `Dear Hiring Team,\n\nI am writing to express my interest in the ${jobTitle} position.\n\nPlease find my resume attached.\n\nBest regards,`
+      );
+      window.location.href = `mailto:careers@magmarine.in?subject=${subject}&body=${body}`;
+    }
   };
 
   return (

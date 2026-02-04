@@ -52,7 +52,74 @@ app.add_middleware(
 # ----------------------------
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
+# ----------------------------
+# Contact Form & Careers Application APIs
+# ----------------------------
 
+@app.post("/api/send-contact")
+async def send_contact_form(
+    name: str = Form(...),
+    email: str = Form(...),
+    phone: str = Form(None),
+    subject: str = Form(...),
+    message: str = Form(...)
+):
+    """Handle contact form submission"""
+    try:
+        body = f"""
+New Contact Form Submission
+
+Name: {name}
+Email: {email}
+Phone: {phone or 'Not provided'}
+Subject: {subject}
+
+Message:
+{message}
+        """
+        
+        send_email(
+            to="sales@magmarine.in",
+            subject=f"Contact Form: {subject}",
+            body=body
+        )
+        
+        return {"success": True, "message": "Message sent successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
+
+
+@app.post("/api/send-application")
+async def send_job_application(
+    job_title: str = Form(...),
+    name: str = Form(None),
+    email: str = Form(None)
+):
+    """Handle job application submission"""
+    try:
+        body = f"""
+New Job Application
+
+Position: {job_title}
+"""
+        if name:
+            body += f"Name: {name}\n"
+        if email:
+            body += f"Email: {email}\n"
+        
+        body += """
+Note: Applicant should attach their resume when replying to this email.
+"""
+        
+        send_email(
+            to="careers@magmarine.in",
+            subject=f"Application for {job_title}",
+            body=body
+        )
+        
+        return {"success": True, "message": "Application submitted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
 # ----------------------------
 # Email Helper
 # ----------------------------
