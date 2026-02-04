@@ -7,6 +7,7 @@ from typing import Optional
 from datetime import datetime, date, timedelta
 import uuid
 from bson import ObjectId
+from dotenv import load_dotenv
 
 import schemas
 from database import (
@@ -16,12 +17,15 @@ from database import (
     employees_collection,
     attendance_collection,
     employee_links_collection,
-    admin_links_collection  # ← ADDED THIS
+    admin_links_collection
 )
 from location_utils import is_location_allowed
 
 import smtplib
 from email.message import EmailMessage
+
+# Load environment variables
+load_dotenv()
 
 # ----------------------------
 # FastAPI App
@@ -32,20 +36,35 @@ SECRET_KEY = "AdminSecretKey"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-SMTP_EMAIL = "sania.elizabath@btech.christuniversity.in"
-SMTP_PASSWORD = "bcjqxsfjfivcibov"
+# ✅ Get credentials from environment variables
+SMTP_EMAIL = os.getenv("SMTP_EMAIL")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+
+# Validate required environment variables
+if not SMTP_EMAIL or not SMTP_PASSWORD:
+    raise ValueError("SMTP credentials not found in environment variables")
 
 reset_tokens = {}  # token -> email/employee data
 
-# ← FIXED CORS - Added more permissive settings
+# ✅ Updated CORS with environment variables
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],  # Added both variants
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"],  # Added this
+    expose_headers=["*"],
 )
+
+# ✅ Create uploads directory on startup
+@app.on_event("startup")
+async def startup_event():
+    os.makedirs("uploads/news", exist_ok=True)
+    print("✅ Uploads directory created/verified")
+    print(f"✅ Frontend URL: {FRONTEND_URL}")
+    print(f"✅ Allowed Origins: {ALLOWED_ORIGINS}")
 
 # ----------------------------
 # Serve uploaded images
@@ -120,6 +139,8 @@ Note: Applicant should attach their resume when replying to this email.
         return {"success": True, "message": "Application submitted successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
+
+
 # ----------------------------
 # Email Helper
 # ----------------------------
@@ -215,7 +236,8 @@ async def forgot_password():
     token = str(uuid.uuid4())
     reset_tokens[token] = email
 
-    reset_link = f"http://localhost:5173/?token={token}"
+    # ✅ Use environment variable for frontend URL
+    reset_link = f"{FRONTEND_URL}/?token={token}"
 
     send_email(
         to=email,
@@ -512,7 +534,8 @@ async def employee_forgot_password(employee_id: int = Form(...)):
     token = str(uuid.uuid4())
     reset_tokens[token] = {"email": email, "employee_id": employee_id, "type": "employee"}
 
-    reset_link = f"http://localhost:5173/?token={token}&type=employee"
+    # ✅ Use environment variable for frontend URL
+    reset_link = f"{FRONTEND_URL}/?token={token}&type=employee"
 
     send_email(
         to=email,

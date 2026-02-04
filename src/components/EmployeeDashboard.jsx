@@ -438,7 +438,7 @@ const EmployeeDashboard = ({ loggedInEmployee, setCurrentPage }) => {
         </div>
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/30">
             <div className="flex items-center justify-between">
               <div>
@@ -481,7 +481,7 @@ const EmployeeDashboard = ({ loggedInEmployee, setCurrentPage }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* FILTER SECTION */}
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-blue-500/20 mb-6">

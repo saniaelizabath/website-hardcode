@@ -345,7 +345,7 @@ const Locations = () => {
     {
       name: "MANGLORE BRANCH",
       address: "CSBD, KASBA BENGRE, MANGALURU, KARNATAKA 575001",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=CSBD+KASBA+BENGRE+MANGALURU+KARNATAKA+575001",
+      mapUrl: "https://maps.app.goo.gl/SCRVbjGhKfH2EHvE6?g_st=ipc",
       position: { top: '220px', left: '485px' },
       color: "from-indigo-500 to-purple-500"
     },
@@ -359,7 +359,7 @@ const Locations = () => {
     {
       name: "OVERSEAS BRANCH",
       address: "6A, LUMBARE AVE, KAMPALA, UGANDA",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=6A+LUMBARE+AVE+KAMPALA+UGANDA",
+      mapUrl: "https://maps.app.goo.gl/wnmVLFtpjh7DLoHv7?g_st=ipc",
       position: { top: '250px', left: '850px' },
       color: "from-pink-500 to-rose-500"
     }

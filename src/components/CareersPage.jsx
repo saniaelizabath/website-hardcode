@@ -29,14 +29,14 @@ const CareersPage = () => {
       const formData = new FormData();
       formData.append('job_title', jobTitle);
 
-      const response = await fetch('http://localhost:8000/api/send-application', {
-        method: 'POST',
-        body: formData
+      // ✅ Using API instance instead of fetch
+      const response = await API.post('/api/send-application', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
+      if (response.data && response.data.success) {
         alert('Application received! Please send your resume to careers@magmarine.in with the subject: Application for ' + jobTitle);
       } else {
         // Fallback to mailto

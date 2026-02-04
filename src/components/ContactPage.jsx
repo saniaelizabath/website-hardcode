@@ -18,35 +18,35 @@ const ContactPage = () => {
       address: "FIDA TOWER, KK PADMANABHAN ROAD, ERNAKULAM NORTH, 682018",
       phone: "0484 214 3140",
       email: "hello@magmarine.in",
-      mapEmbed: "https://maps.app.goo.gl/GGA3ayqjrjK4N5az6?g_st=iw"
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.253357824076!2d76.2794716!3d9.992084599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d001e771e0d%3A0xd86d316f0d03ef88!2sMag%20Marine%20Services%20Pvt.%20Ltd.!5e1!3m2!1sen!2sin!4v1770209545323!5m2!1sen!2sin" 
     },
     {
       name: "CHENNAI OFFICE",
       address: "71, L&T SHIPBUILDING, KATTUPALLI, TAMIL NADU 600120",
       phone: "8714139489",
       email: "hello@magmarine.in",
-      mapEmbed: "https://maps.app.goo.gl/HoD2qsaVbXfDaCJN8?g_st=iw"
+      mapEmbed:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3882.660460504073!2d80.3456254!3d13.3091379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52776122992fe1%3A0x6059d1f40a2199a6!2sMag%20Marine%20Services%20Private%20Limited!5e0!3m2!1sen!2sin!4v1770209823448!5m2!1sen!2sin" 
     },
     {
       name: "MANGLORE BRANCH",
       address: "CSBD, KASBA BENGRE, MANGALURU, KARNATAKA 575001",
       phone: "9961866395",
       email: "hello@magmarine.in",
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.0!2d74.8!3d12.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU0JzAwLjAiTiA3NMKwNDgnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+      mapEmbed:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.5064604398544!2d74.820809!3d12.875122000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35bfa8dce3661%3A0xbb969ec5f3f0f860!2sChowguleSBD%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1770209929408!5m2!1sen!2sin" 
     },
     {
       name: "VIZAG BRANCH",
       address: "SITE OFFICE, HINDUSTAN SHIPYARD, VISAKHAPATNAM, ANDHRA PRADESH 530005",
       phone: "9539759593",
       email: "hello@magmarine.in",
-      mapEmbed: "https://maps.app.goo.gl/NMcCcFM8S2QjimCh8?g_st=iw"
+      mapEmbed:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3801.1223101522146!2d83.2779111!3d17.6916813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a39430040e85cad%3A0x50519fa7caf8bee4!2sMag%20Marine%20Services%20Private%20Limited!5e0!3m2!1sen!2sin!4v1770209984716!5m2!1sen!2sin" 
     },
     {
       name: "OVERSEAS BRANCH",
       address: "6A, LUMBARE AVE, KAMPALA, UGANDA",
       phone: "+256 752731787",
       email: "hello@magmarine.in",
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0!2d32.6!3d0.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMTgnMDAuMCJOIDMywrAzNicwMC4wIkU!5e0!3m2!1sen!2sin!4v1234567890"
+      mapEmbed:"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.755696914027!2d32.57453667496461!3d0.32101849967583085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMTknMTUuNyJOIDMywrAzNCczNy42IkU!5e0!3m2!1sen!2sin!4v1770210033553!5m2!1sen!2sin"
     }
   ];
 
@@ -69,14 +69,14 @@ const ContactPage = () => {
       formDataToSend.append('subject', formData.subject);
       formDataToSend.append('message', formData.message);
 
-      const response = await fetch('http://localhost:8000/api/send-contact', {
-        method: 'POST',
-        body: formDataToSend
+      // ✅ Using API instance instead of fetch
+      const response = await API.post('/api/send-contact', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
+      if (response.data && response.data.success) {
         alert('Message sent successfully! We will get back to you soon.');
         setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
         setShowForm(false);
